@@ -66,7 +66,6 @@ app.delete("/delete/:id", async (req, res) => {
       "DELETE FROM reviews WHERE review_id = $1",
       [id]
     );
-    console.log(response);
     if (!response.rowCount) {
       return res.status(500).json("Could not Delete the data");
     }
