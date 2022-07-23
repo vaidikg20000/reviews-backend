@@ -7,7 +7,4 @@ CREATE TABLE "reviews" (
   "created_at" timestamp
 );
 
-ALTER TABLE "users" ALTER  "created_at" SET DEFAULT now();
-
--- EDIT-
--- UPDATE reviews SET (title = $1 , content = $2) WHERE review_id = $3;
+ALTER TABLE "reviews" ALTER  "created_at" SET DEFAULT now();
