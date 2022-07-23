@@ -52,7 +52,25 @@ app.put("/reviews/:id", async (req, res) => {
       "UPDATE reviews SET title = $1 , content = $2 WHERE review_id = $3",
       [title, content, id]
     );
-    res.status(200).json("Review Edited");
+    return res.status(200).json("Review Edited");
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).json("Internal Server Error");
+  }
+});
+
+app.get("/reviews/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const getReviews = await pool.query(
+      "SELECT * FROM reviews WHERE review_id = $1",
+      [id]
+    );
+    if(getReviews.rows.length === 0){
+      return res.status(404).json("Matching Records not found");
+    }
+    return res.status(200).json(getReviews.rows[0]);
   } catch (error) {
     console.error(error.message);
     return res.status(500).json("Internal Server Error");
